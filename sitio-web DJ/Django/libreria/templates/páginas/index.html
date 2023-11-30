@@ -60,7 +60,16 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        contenidoo
+        Libros promocionados:
+        {% for libro in promo %}
+        <div class="card">
+          <img class="card-img-top" src="{{libro.imagen.url}}" alt="Title" style="max-width: fit-content;">
+          <div class="card-body">
+            <h4 class="card-title">{{libro.titulo}}</h4>
+            <p class="card-text">{{libro.descripcion}}</p>
+          </div>
+        </div>
+        {% endfor %}
         {% block contenido %} {% endblock %}
       </div>
       </div>

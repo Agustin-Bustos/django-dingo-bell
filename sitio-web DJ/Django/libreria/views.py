@@ -6,21 +6,20 @@ from .models import Comentarios, Libro
 from .forms import LibroForm, comentariosForm
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
+from django.utils import timezone
 
 # Create your views here.
 def inicio(request):
-    #return HttpResponse("PRUEBA 1")
-    return render(request, 'páginas/index.html')
+    fechahoy = timezone.now()
+    print(fechahoy)
+    promo = Libro.objects.filter(Promo__gte=fechahoy.strftime('%Y-%m-%d %H:%M:%S.%f'))
+    print(promo)
+    return render(request, 'páginas/index.html', {'promo':promo})
 
 def nosotros(request):
     return render(request, 'páginas/nosotros.html')
 
 def libros(request):
-    return render(request, 'libros/libros.html')
-
-def libros(request):
-    libros = Libro.objects.all()
-    print(libros)
     return render(request, 'libros/libros.html')
 
 def libros(request):
@@ -66,7 +65,7 @@ def com(request,id):
 def eliminarc(request,id):
     comentario= Comentarios.objects.get(ID_c=id)
     comentario.delete()
-    return redirect('com')
+    return render(request, 'libros/com.html')
 
 def editarc(request,id):
     comentarios=Comentarios.objects.get(ID_c=id)
@@ -74,4 +73,4 @@ def editarc(request,id):
     if formulario.is_valid() and request.POST:
         formulario.save()
         return redirect('libros')
-    return render(request,'libros/editarcom.html',{'formulario':formulario})
+    return render(request,'libros/editarcom.html',{'formulario':formulario}, {'comentarios':comentarios})
