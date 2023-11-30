@@ -29,14 +29,12 @@
             <table class="table">
                 <tr class="table-primary">
                     <td>Libro</td>
-                    <td>ID</td>
                     <td>Comentario</td>
                     <td>Acciones</td>
                    
                     {% for comentarios in comentarios %}
                         <tr class="table-secondary">
-                            <td scope="row">{{comentarios.ID}}</td>
-                            <td>{{comentarios.ID_c}}</td>
+                            <td>{{comentarios.ID}}</td>
                             <td>{{comentarios.Comentario}}</td>
                             <td>
                                 <a name="" id="" class="btn btn-info" href="{% url 'editarc' comentarios.ID_c %}" role="button">Editar</a>
